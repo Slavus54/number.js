@@ -9,7 +9,25 @@ Light and powerful javascript library to handling numbers.
 
 ## Links
 
-Download - *https://www.npmjs.com/package/number.js*      
+Download - *https://www.npmjs.com/package/number.js*  
+
+## Examples
+
+How much can I earn in Russia after tax paid? :moneybag:
+
+~~~ 
+    const income: number = 350 (in dollars per month) // tax for this average salary will be 13%    
+    let result: number = number.cleanValue(87, income, 1) // 304.5 $         
+~~~
+
+I want to know part of my work as builder in % of time last evening? :hammer:   
+
+~~~ 
+    const duration: number = 120    
+
+    let work: number = 30   
+    let result: number = number.percent(work, duration) // 25    
+~~~
 
 ## Methods
 
