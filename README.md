@@ -2,14 +2,14 @@
 
 Light and powerful javascript library to handling numbers.        
             
-* Current Version: **1.0.0**        
+* Current Version: **1.0.1**        
 * Most of algorithms have **O(n)** and **O(log n)** time complexity :star:      
 * There are 0 dependencies except Node.js             
-* **0.14K** lines of code and *10* methods** :gem:      
+* **0.25K** lines of code and **15 methods** :gem:      
 
 ## Links
 
-Download - *https://www.npmjs.com/package/number.js*  
+Download - *https://www.npmjs.com/package/numberus.js*  
 
 ## Examples
 
@@ -27,6 +27,14 @@ I want to know part of my work as builder in % of time last evening? :hammer:
 
     let work: number = 30   
     let result: number = number.percent(work, duration) // 25    
+~~~
+
+Is licence plate on car includes 5 on third position? :oncoming_automobile:  
+
+~~~ 
+    const licencePlate: number = 3517
+
+    let isInclude: boolean = number.getNumDigit(licencePlate, 3) === 5 // true     
 ~~~
 
 ## Methods
@@ -49,4 +57,14 @@ I want to know part of my work as builder in % of time last evening? :hammer:
 
 - **findNearestBaseOfPoweredNum** (*num* = 1, *list* = []) - finds nearest base among *list* elements to power it for *num*.      
 
-- **deleteNumDigit** (*num* = 1, *digit* = 1) - delete *digit* from *num* by changing it like this: (1368, 2) => 138.      
+- **deleteNumDigit** (*num* = 1, *digit* = 1) - delete *digit* from *num* by changing it like this: (1368, 2) => 138.   
+
+- **numSimpleProgression** (*start* = 1e3, *step* = 1, *length* = 1e1, *isIncrease* = true) - builds a number progression by parameters.  
+
+- **numPercentProgression** (*num* = 1, *percent* = 1e1, *iterations* = 1, *round* = 0) - multiplies *num* by *iterations* on *percent* = (1 + *percent* * 0.01).    
+
+- **findNumListAverageQuotient** (*list* = [], *num* = 1) - counts average number as quotent of each *list* element (devided on *num* without residue) division on *num*.   
+
+- **findNearestMultipleToNum** (*num* = 1, *list* = []) - finds number with minimal residue after division on *num*.    
+
+- **getFastestNumReachByOperation** (*num* = 1, *operation* = '+', *coefficient* = 1, *list* = []) - return number in *list*, which fastest reach *num* by *coefficient* and *operation*.   

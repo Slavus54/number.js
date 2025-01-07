@@ -116,6 +116,89 @@ class Core extends Helper {
 
         return result
     }
+
+    numSimpleProgression(start = 1e3, step = 1, length = 1e1, isIncrease = true) {
+        let result = []
+        let value = start
+
+        for (let i = 0; i < length; i++) {
+            value = isIncrease ? value + step : value - step
+
+            result = [...result, value]
+        }
+
+        return result
+    }
+
+    numPercentProgression(num = 1, percent = 1e1, iterations = 1, round = 0) {
+        const step = 1 + this.cleanValue(percent, 1, 2)
+        let result = num
+        
+        for (let i = 0; i < iterations; i++) {
+            result *= step
+        } 
+
+        result = this.cleanValue(1e2, result, round)
+
+        return result
+    }
+
+    findNumListAverageQuotient(list = [], num = 1) {
+        let result = 0
+        let counter = 0
+
+        list.map(el => {
+            if (el % num === 0) {
+                result += (el / num)
+                counter++
+            }
+        })
+
+        result = Math.round(result / counter)
+
+        return result
+    }
+
+    findNearestMultipleToNum(num = 1, list = []) {
+        let difference = num
+        let result = 1
+        
+        list.map(el => {
+            let value = num % el
+       
+            if (value < difference) {
+                result = el
+                difference = value
+            }
+        })
+
+        return result
+    }
+
+    getFastestNumReachByOperation(num = 1, operation = '+', coefficient = 1, list = []) {
+        const change = value => eval(`${value}${operation}${coefficient}`)
+        
+        let isGrowing = change(num) > num
+        let iterations = 1e2
+        let result = 0
+
+        list.map((el, idx) => {
+            let counter = 0
+            let value = el
+
+            while (!Boolean(idx) || counter < iterations && isGrowing ? change(value) < num : change(value) > num) {
+                value = change(value)
+                counter++
+            }
+
+            if (counter < iterations) {
+                result = el
+                iterations = counter
+            }      
+        })
+
+        return result
+    }
 }
 
 module.exports = Core

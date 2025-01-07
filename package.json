@@ -1,6 +1,6 @@
 {
-  "name": "number.js",
-  "version": "1.0.0",
+  "name": "numberus.js",
+  "version": "1.0.1",
   "description": "Light and powerful javascript library to handling numbers",
   "main": "index.js",
   "scripts": {
