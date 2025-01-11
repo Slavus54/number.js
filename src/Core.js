@@ -199,6 +199,264 @@ class Core extends Helper {
 
         return result
     }
+
+    analysisProgressionIterations(list = []) {
+        let result = []
+
+        list.map((el, idx) => {
+            let next = list[idx + 1]
+
+            if (next) {
+                let couple = [el, next]
+                let difference = Math.abs(el - next)
+                let max = Math.max(...couple)
+                let min = Math.min(...couple)
+                let symbol
+
+                if (max % min !== 0) {
+                    symbol = el <= next ? '+' : '-'
+                } else if (difference >= min && max % min === 0) {
+                    symbol = el < next ? '*' : '/'
+                    
+                    difference = Math.floor(max / min) 
+                }
+
+                let iteration = `${symbol} ${difference}`
+
+                if (result.find(item => item === iteration) === undefined) {
+                    result = [...result, iteration]
+                }                
+            }
+        })
+        
+        return result
+    }
+
+    numLevelsOfMultiplicity(value = 2e3, num = 1) {
+        let result = 0
+
+        while (value % num === 0) {
+            value /= num
+            result++
+        }
+
+        return result
+    }
+    
+    numPositionInsideBorders(num = 1, min = 1, max = 1e1, round = 0) {
+        let difference = Math.abs(max - min)
+        let result = this.percent(Math.abs(num - min), difference, round)
+
+        return result
+    }
+
+    buildNumBorders(min = 0, numbers = []) {
+        let result = []
+
+        for (let i = 0; i < numbers.length; i++) {
+            let current = numbers[i]
+
+            result = [...result, [min, current]]
+        
+            min = current
+        }
+
+        return result
+    }
+
+    findMaximumNumDifferenceByIndexedDistance(list = [], percent = 1e1) {
+        let distance = this.cleanValue(percent, list.length, 0)
+        let result = 0
+        let index = 0
+
+        while (index < (list.length - distance)) {
+            let first = list[index]
+            let second = list[distance + index]
+        
+            let difference = Math.abs(first - second)
+
+            if (difference > result) {
+                result = difference
+            }
+
+            index++
+        }
+
+        return result
+    }
+
+    smoothNumSymmetric(num = 1) {
+        const length = String(num).length
+        const middle = Math.floor(length / 2)
+
+        let currentIdx = 1
+        let result = 0
+
+        for (currentIdx; currentIdx <= middle; currentIdx++) {
+            let nextIdx = length - currentIdx + 1
+
+            let current = this.getNumDigit(num, currentIdx)
+            let next = this.getNumDigit(num, nextIdx)
+            let average = Math[current > next ? 'round' : 'floor']((current + next) / 2)
+            
+            result += average * 1e1**(currentIdx - 1)
+            result += next * 1e1**(nextIdx - 1)
+        }
+
+        if (Boolean(length % 2)) {
+            let position = Math.round(length / 2)
+
+            result += this.getNumDigit(num, position) * 1e1**(position - 1)
+        }
+
+        return result
+    }
+
+    findNumListDivisionPairs(list = []) {       
+        const length = list.length
+        let result = []
+
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                if (i !== j) {
+                    let current = list[i]
+                    let next = list[j]
+                    let flag = current % next === 0 || next % current === 0
+                    let value = current > next ? [current, next] : [next, current]
+                    
+                    if (flag && result.find(el => el[0] === value[0] && el[1] === value[1]) === undefined) {
+                        result = [...result, value]
+                    }
+                }
+            }
+        }
+
+        return result
+    }
+
+    findNumLargestDigit(num = 1) {
+        const length = String(num).length
+        
+        let counter = 1
+        let result = 0
+
+        while (counter < length && result !== 9) {
+            result = this.getNumDigit(num, counter)
+            counter++
+        }
+
+        return result
+    }
+
+    findNumListAveragePairs(list = [], num = 1) {
+        const length = list.length
+        let result = []
+
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                if (i !== j) {
+                    let current = list[i]
+                    let next = list[j]
+                    let value = Math.round((current + next) / 2)
+                    let pair = current < next ? [current, next] : [next, current]
+
+                    if (value === num && result.find(el => el[0] === pair[0] && el[1] === pair[1]) === undefined) {
+                        result = [...result, pair]
+                    }
+                }
+            }
+        }
+
+        return result
+    }
+
+    generateNumByDigitsRandomly(list = [], size = 1, isUniq = true) {
+        let result = 0
+
+        for (let i = 0; i < size; i++) {
+            let digit = list[Math.floor(list.length * Math.random())]
+        
+            if (isUniq) {
+                let prev = this.getNumDigit(result, i)
+       
+                while (digit === prev) {
+                    digit = list[Math.floor(list.length * Math.random())]
+                }
+            }
+
+            result += digit * 1e1**i
+        }
+
+        return result
+    }
+
+    findNumDistanceByDifference(list = [], percent = 1e1) {
+        let max = Math.max(...list)
+        let min = Math.min(...list)
+        let difference = Math.abs(max - min)
+        let deviation = 1e5
+        let result = []
+
+        difference = this.cleanValue(percent, difference, 0)
+
+        for (let i = 0; i < list.length; i++) {
+            for (let j = 0; j < list.length; j++) {
+                let value = Math.abs(list[j] - list[i])
+                let odds = Math.abs(value - difference)
+       
+                if (odds < deviation) {
+                    result = [i, j]
+                    deviation = odds
+                }
+            }
+        }
+
+        return result
+    }
+
+    findNumLargestCompareSubsequence(list = [], num = 1, isMore = true) {
+        let result = []
+        let seq = []
+        let maxlength = 0
+
+        list.map(el => {
+            let check = isMore && num > el || !isMore && num < el
+
+            if (check) {
+                seq = [...seq, el]
+            } else {
+                seq = []
+            }
+
+            if (seq.length > maxlength) {
+                result = seq
+                maxlength = seq.length
+            }
+        })
+
+        return result
+    }
+
+    findNumMultiplicityList(list = [], num = 1) {
+        let result = []
+
+        list.map(el => {
+            let value = el % num
+
+            if (!Boolean(value)) {
+                result = [...result, el]
+            }
+        })
+
+        return result
+    }
+
+    numPercentBorders(num = 1, percent = 1e1, round = 0) { 
+        let size = this.cleanValue(percent, num, round)
+        let result = [num - size, num + size]
+    
+        return result
+    }
 }
 
 module.exports = Core

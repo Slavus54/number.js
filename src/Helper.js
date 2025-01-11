@@ -20,6 +20,10 @@ class Helper {
 
         return result
     }
+
+    getIntervalValue(borders = []) {
+        return Math.floor(borders[0] + Math.round(Math.random() * Math.abs(borders[0] - borders[1])))
+    }
 }
 
 module.exports = Helper

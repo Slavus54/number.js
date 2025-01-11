@@ -1,3 +1,3 @@
-const NumberCore = require('./src/Core')
+const NumberusCore = require('./src/Core')
 
-module.exports = {NumberCore}
+module.exports = NumberusCore
