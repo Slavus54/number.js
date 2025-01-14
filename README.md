@@ -2,10 +2,10 @@
 
 Light and powerful javascript library to handling numbers.        
             
-* Current Version: **1.0.2**        
+* Current Version: **1.0.3**        
 * Most of algorithms have **O(n)** and **O(log n)** time complexity :star:      
 * There are 0 dependencies except Node.js             
-* **0.49K** lines of code and **30 methods** :gem:      
+* **0.56K** lines of code and **35 methods** :gem:      
 
 ## Links
 
@@ -106,4 +106,14 @@ Is licence plate on car includes 5 on third position? :oncoming_automobile:
 
 - **findNumMultiplicityList** (*list* = [], *num* = 1) - filter *list* of numbers and returns only divided on *num* without residue.    
 
-- **numPercentBorders** (*num*= 1, *percent* = 1e1, *round* = 0) - return borders generated as -+ *num* and *percent* of *num*. .   
+- **numPercentBorders** (*num*= 1, *percent* = 1e1, *round* = 0) - return borders generated as -+ *num* and *percent* of *num*.  
+
+- **findNumListSmallestFractionalPart** (*list* = [], *round* = 2) - return number with smallest fractional part among *list* elements.  
+
+- **getNumSymmmetric** (*digit* = 1, *size* = 1) - build number symmetric starts with *digit*.      
+
+- **numListDeviationPercent** (*list* = [], *num* = 1) - return % of deviation among all numbers of *list* from *num*.    
+
+- **findNumDigitPercentFromAll** (*num* = 1, *digit* = 1, *round* = 0) - counts % from *num* as *digit* of *num* (#2 1368 - 68 into %).      
+
+- **numReverse** (*num* = 1) - just reverses given number.        

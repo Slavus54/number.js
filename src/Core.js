@@ -457,6 +457,71 @@ class Core extends Helper {
     
         return result
     }
+
+    findNumListSmallestFractionalPart(list = [], round = 2) {
+        let result = 1
+
+        list.map(el => {
+            let value = Number(el.toFixed(round).split('.')[1]) * 1e1**-round
+        
+            if (result > value) {
+                result = value
+            }
+        })
+
+        return result
+    }
+
+    getNumSymmmetric(digit = 1, size = 1) { 
+        const middle = Math.floor(size / 2)
+        let result = 0
+
+        for (let i = 0; i < middle; i++) {
+            let value = digit - i
+
+            if (Boolean(value)) {
+                result += value * 1e1**(size - i - 1) + value * 1e1**i
+            }
+        }
+
+        return result
+    }
+
+    numListDeviationPercent(list = [], num = 1) {
+        let result = 0
+
+        list.map(el => {
+            let value = Math.abs(el - num)
+
+            result += value
+        })
+  
+        result = Math.round((result / list.length) * 1e2) - 1e2
+
+        return result
+    }
+
+    findNumDigitPercentFromAll(num = 1, digit = 1, round = 0) {
+        let value = this.getYearDigit(num, digit)
+        let result = this.percent(value * 1e1**(digit - 1), num, round)
+
+        return result
+    }
+
+    numReverse(num = 1) {
+        const length = String(num).length
+        let result = new Array(length).fill(0)
+
+        for (let i = 1; i <= length; i++) {
+            let digit = this.getYearDigit(num, i)
+
+            result[i] = digit
+        }
+
+        result = Number(result.join(''))
+
+        return result
+    }
 }
 
 module.exports = Core
