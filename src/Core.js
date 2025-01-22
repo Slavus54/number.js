@@ -458,20 +458,6 @@ class Core extends Helper {
         return result
     }
 
-    findNumListSmallestFractionalPart(list = [], round = 2) {
-        let result = 1
-
-        list.map(el => {
-            let value = Number(el.toFixed(round).split('.')[1]) * 1e1**-round
-        
-            if (result > value) {
-                result = value
-            }
-        })
-
-        return result
-    }
-
     getNumSymmmetric(digit = 1, size = 1) { 
         const middle = Math.floor(size / 2)
         let result = 0
@@ -502,7 +488,7 @@ class Core extends Helper {
     }
 
     findNumDigitPercentFromAll(num = 1, digit = 1, round = 0) {
-        let value = this.getYearDigit(num, digit)
+        let value = this.getNumDigit(num, digit)
         let result = this.percent(value * 1e1**(digit - 1), num, round)
 
         return result
@@ -519,6 +505,305 @@ class Core extends Helper {
         }
 
         result = Number(result.join(''))
+
+        return result
+    }
+
+    getNumDigitPart(num = 1, digit = 1) {
+        let length = String(num).length
+        let result = 0
+
+        length = digit <= length ? digit : length
+
+        for (let i = 1; i <= length; i++) {
+            result += this.getNumDigit(num, i) * 1e1**(i - 1)
+        }
+
+        return result
+    }
+
+    exchangeNumListParts(list = []) {
+        const length = list.length
+        const border = length - 1
+
+        let integers = new Array(length).fill(null)
+        let residues = new Array(length).fill(null)
+        let result = []
+
+        list.map(el => {
+            const integer = Math.floor(el)
+            const residue = this.getCleanResidue(el)
+         
+            let integerIdx = this.getIntervalValue([0, border])
+            let residueIdx = this.getIntervalValue([0, border])
+
+            while (integerIdx === residueIdx || integers[integerIdx] !== null || residues[residueIdx] !== null) {
+                integerIdx = this.getIntervalValue([0, border])
+                residueIdx = this.getIntervalValue([0, border])
+            }
+
+            integers[integerIdx] = integer
+            residues[residueIdx] = residue
+        })
+
+        integers.map((el, idx) => {
+            result[idx] = el + residues[idx]
+        })
+
+        return result
+    }
+
+    numRound(num = 1, min = 0, max = 1, forward = 1, back = 1) {
+        let result = this.getCleanResidue(num)
+        let flag = result >= min && result <= max
+        let divider = flag ? forward : back
+
+        result = Math[flag ? 'ceil' : 'floor'](num / divider) * divider
+
+        return result
+    }
+
+    filterNumListByRangePercent(list = [], num = 1, from = 1, to = 1e1) {
+        let max = Math.max(...list)
+        let min = Math.min(...list)
+        let range = Math.abs(max - min)
+        let result = []
+
+        min = this.cleanValue(from, range, 0)
+        max = this.cleanValue(to, range, 0)
+
+        list.map(el => {
+            let difference = Math.abs(el - num)
+
+            if (difference >= min && difference <= max) {
+                result = [...result, el]
+            }
+        })
+
+        return result
+    }
+
+    generateNumByMultipliersRandomly(list = [], size = 1) {
+        const getValue = () => list[Math.floor(Math.random() * length)]
+        const length = list.length
+
+        let result = 1        
+        
+        size = length < size ? length : size
+
+        for (let i = 0; i < size; i++) {
+            let value = getValue()
+
+            while (!Boolean(result % value)) {
+                value = getValue()
+            }
+
+            result *= value
+        }
+
+        return result
+    }
+
+    findNumListAllPairsByMultiplicity(list = [], num = 1) { 
+        const length = list.length
+        let result = []
+
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                if (i !== j) {
+                    let current = list[i]
+                    let next = list[j]
+
+                    let value = current * next
+                    let pair = current < next ? [current, next] : [next, current]
+
+                    if (value % num === 0 && result.find(el => el[0] === pair[0] && el[1] === pair[1]) === undefined) {
+                        result = [...result, pair]
+                    }
+                }
+            }
+        }
+
+        return result
+    }
+
+    findNumListMaxRangeByMultiplicity(list = [], num = 1) {
+        const length = list.length
+        
+        let result = []
+        let difference = 0
+
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                if (i !== j) {
+                    let current = list[i]
+                    let next = list[j]
+
+                    let value = Math.abs(current - next)
+
+                    if (value % num === 0 && value > difference) {
+                        result = current < next ? [current, next] : [next, current]
+                        difference = value
+                    }
+                }
+            }
+        }
+
+        return result
+    }
+
+    filterNumListByFractionalPart(list = [], min = 0, max = 1, num = 1) {
+        let result = []
+
+        list.map(el => {
+            let value = this.getCleanResidue(el)
+            let flag = Math.round(value * 1e2) % num === 0
+         
+            if (value >= min && value <= max && flag) {
+                result = [...result, el]
+            }
+        })
+
+        return result
+    }
+    
+    findNumListLargestFractionalBaseDifference(list = []) {
+        let difference = 0
+        let result = 0
+        
+        list.map(el => {
+            let base = Math.floor(el)
+            let fraction = this.getCleanResidue(el)
+            
+            let value = base / fraction
+            
+            if (value > difference) {
+                difference = value
+                result = el
+            }
+        })
+
+        return result
+    }
+    
+    findNumLargestSubsequenceBySchemaChanges(list = [], schema = []) {
+        let result = []
+        let seq = []
+        
+        let pointer = 0
+        let index = 0
+
+        list.map((el, idx) => {
+            let value = schema[index]
+            let flag = !Boolean(idx) || value ? el > pointer : el < pointer
+            
+            if (flag) {
+                seq = [...seq, el]
+                index = Boolean(idx) ? index + 1 : index
+            } else {
+
+                if (seq.length > result.length) {
+                    result = seq
+                }
+
+                seq = [el]
+                index = 0
+            }
+
+            pointer = el
+        })
+
+        return result
+    }
+
+    updateNumFractionalPartRandomly(num = 1, from = 0, to = .5, accuracy = 1) {
+        let result = Math.floor(num / 1)
+
+        from = Math.floor(from * 1e1**accuracy) 
+        to = Math.floor(to * 1e1**accuracy)
+
+        result += this.getIntervalValue([from, to]) * 1e1**-accuracy
+
+        return result
+    }
+
+    transformNumByPartsExhange(num = 1) { 
+        let result = this.getCleanResidue(num)
+
+        while (result % 1 !== 0) {
+            result *= 1e1
+        }
+  
+        num = Math.floor(num / 1)
+
+        while (num > 1) {
+            num *= .1
+        }
+     
+        result += num
+
+        return result
+    }
+
+    findNearestPairByDynamicRatio(list = [], ratio = 1) {
+        const length = list.length
+
+        let result = []
+        let difference = ratio
+
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                if (i !== j) {
+                    let current = list[i]
+                    let next = list[j]
+                    let flag = current < next
+
+                    let pair = flag ? [current, next] : [next, current]
+                 
+                    if (ratio > 1 && flag || ratio < 1 && !flag) {
+                        pair = pair.reverse()
+                    } 
+              
+                    let toCompare = pair[0] / pair[1]
+                
+                    toCompare = Math.abs(ratio - toCompare)
+                   
+                    if (toCompare < difference) {
+                        difference = toCompare
+                        result = pair
+                    }
+                }
+            } 
+        }
+
+        return result
+    }
+
+    buildNumListByChainSchema(num = 1, schema = [], forward = 1, back = 1) {
+        const max = num + forward
+        const min = num - back
+        
+        let increase = num
+        let decrease = num
+        let result = []
+        
+        schema.map(isIncrease => {
+            let borders = [isIncrease ? increase : decrease, isIncrease ? max : min]
+ 
+            if (!isIncrease) {
+                borders = borders.reverse()
+            }
+
+            let value = this.getIntervalValue(borders)
+
+            result = [...result, value]
+
+            if (isIncrease) {
+                increase = value
+            } else {
+                decrease = value
+            }
+        })
 
         return result
     }

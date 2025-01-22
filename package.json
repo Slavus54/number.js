@@ -1,6 +1,6 @@
 {
   "name": "numberus.js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Light and powerful javascript library to handling numbers",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,6 @@
   "author": "Slavus54",
   "license": "NSTU",
   "dependencies": {
-    "node": "^23.6.0"
+    "node": "^18.20.6"
   }
 }

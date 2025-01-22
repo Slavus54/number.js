@@ -2,10 +2,10 @@
 
 Light and powerful javascript library to handling numbers.        
             
-* Current Version: **1.0.3**        
-* Most of algorithms have **O(n)** and **O(log n)** time complexity :star:      
-* There are 0 dependencies except Node.js             
-* **0.56K** lines of code and **35 methods** :gem:      
+* Current Version: **1.0.4**            
+* Most of algorithms have **O(n)** and **O(log n)** time complexity :star:          
+* Only Node.js as dependency               
+* **0.85K** lines of code and **49 methods** :gem:        
 
 ## Links
 
@@ -58,6 +58,8 @@ Is licence plate on car includes 5 on third position? :oncoming_automobile:
 
 - **getIntervalValue** (*borders* = []) - generates random number inside *borders*.  
 
+- **getCleanResidue** (*num* = 1) - returns residue without rounding of *num*.      
+
 - **numDigitInResidueExist** (*num* = 1e1, *position* = 1) - checks if digit *num* by *position* exist in it residue.       
 
 - **digitsOfNum** (*num* = 1e1) - returns list of num's digits, each one is multiplied by powered 10.           
@@ -108,12 +110,38 @@ Is licence plate on car includes 5 on third position? :oncoming_automobile:
 
 - **numPercentBorders** (*num*= 1, *percent* = 1e1, *round* = 0) - return borders generated as -+ *num* and *percent* of *num*.  
 
-- **findNumListSmallestFractionalPart** (*list* = [], *round* = 2) - return number with smallest fractional part among *list* elements.  
-
 - **getNumSymmmetric** (*digit* = 1, *size* = 1) - build number symmetric starts with *digit*.      
 
 - **numListDeviationPercent** (*list* = [], *num* = 1) - return % of deviation among all numbers of *list* from *num*.    
 
 - **findNumDigitPercentFromAll** (*num* = 1, *digit* = 1, *round* = 0) - counts % from *num* as *digit* of *num* (#2 1368 - 68 into %).      
 
-- **numReverse** (*num* = 1) - just reverses given number.        
+- **numReverse** (*num* = 1) - just reverses given number.  
+
+- **getNumDigitPart** (*num* = 1, *digit* = 1) - cut off digits from *num* by position *digit*. 
+
+- **exchangeNumListParts** (*list* = []) - mix base and fractional parts among numbers of *list*.   
+
+- **numRound** (*num* = 1, *min* = 0, *max* = 1, *forward* = 1, *back* = 1) - rounding *num* by it's residue inside borders, if true up to *forward*, false - *back*.   
+
+- **filterNumListByRangePercent** (*list* = [], *num* = 1, *from* = 1, *to* = 1e1) - return numbers, which inside % borders of *list* range (difference between max and min).  
+
+- **generateNumByMultipliersRandomly** (*list* = [], *size* = 1) - build number from multipliers in *list* with length by *size*.  
+
+- **findNumListAllPairsByMultiplicity** (*list* = [], *num* = 1) - return uniq pairs of numbers, which product is a multiple to *num*.  
+
+- **findNumListMaxRangeByMultiplicity** (*list* = [], *num* = 1) - find pair of max range, which difference is multiple to *num*.   
+
+- **filterNumListByFractionalPart** (*list* = [], *min* = 0, *max* = 1, *num* = 1) - validate list of numbers by checking fractional part of each *list* element inside borders and multiple to *num*.  
+
+- **findNumListLargestFractionalBaseDifference** (*list* = []) - looking for number with largest difference between base and fractional part.      
+
+- **findNumLargestSubsequenceBySchemaChanges** (*list* = [], *schema* = []) - returns largest subsequence of *list*, which elements related to boolean *schema* (true - increasing).    
+
+- **updateNumFractionalPartRandomly** (*num* = 1, *from* = 0, *to* = .5, *accuracy* = 1) - generate new fractional part of *num* between borders with length by *accuracy*.  
+
+- **transformNumByPartsExhange** (*num* = 1) - exchange base and fractional parts of *num*. 
+
+- **findNearestPairByDynamicRatio** (*list* = [], *ratio* = 1) - find nearest to *ratio* pair of numbers among *list* and return result.    
+
+- **buildNumListByChainSchema** (*num* = 1, *schema* = [], *forward* = 1, *back* = 1) - build list from *num* by increase/decrease boolean *schema* with randomly steps inside borders.    

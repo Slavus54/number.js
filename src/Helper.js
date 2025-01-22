@@ -24,6 +24,13 @@ class Helper {
     getIntervalValue(borders = []) {
         return Math.floor(borders[0] + Math.round(Math.random() * Math.abs(borders[0] - borders[1])))
     }
+
+    getCleanResidue(num = 1) {
+        let value = String(num).split('.')[1]
+        let length = value.length
+        
+        return Number(value) * 1e1**-length
+    }
 }
 
 module.exports = Helper
