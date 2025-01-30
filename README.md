@@ -2,10 +2,10 @@
 
 Light and powerful javascript library to handling numbers.        
             
-* Current Version: **1.0.4**            
+* Current Version: **1.0.5**            
 * Most of algorithms have **O(n)** and **O(log n)** time complexity :star:          
 * Only Node.js as dependency               
-* **0.85K** lines of code and **49 methods** :gem:        
+* **1.05K** lines of code and **60 methods** :gem:        
 
 ## Links
 
@@ -144,4 +144,26 @@ Is licence plate on car includes 5 on third position? :oncoming_automobile:
 
 - **findNearestPairByDynamicRatio** (*list* = [], *ratio* = 1) - find nearest to *ratio* pair of numbers among *list* and return result.    
 
-- **buildNumListByChainSchema** (*num* = 1, *schema* = [], *forward* = 1, *back* = 1) - build list from *num* by increase/decrease boolean *schema* with randomly steps inside borders.    
+- **buildNumListByChainSchema** (*num* = 1, *schema* = [], *forward* = 1, *back* = 1) - build list from *num* by increase/decrease boolean *schema* with randomly steps inside borders.  
+
+- **calculateNumBySchemaOperationsAndListRandomly** (*num* = 1, *schema* = [], *list* = []) - transform *num* by operations in *schema* with *list* randomly.         
+
+- **buildNumListByProgressionSchema** (*num* = 1, *schema* = [], *arithmetic* = 1, *geometric* = 1, *isIncrease* = true) - build list as mixed progression (arithmetic if true and geometric if false) by boolean *schema* and coefficients.        
+
+- **filterNumListByFractionalPartLatestDigit** (*list* = [], *from* = 1, *to* = 1) - return only those numbers, which has latest digit in fractional part between borders.    
+
+- **numFactorialMultiplicity** (*value* = 1, *num* = 1) - count *value* factorial only with those multipliers, which multiple to *num*.  
+
+- **findNumListUltraByMultiplicitySchema** (*list* = [], *schema* = [], *isMax* = true) - find max/min value in *list* which multiple to each *schema* number.    
+
+- **checkNumMultiplicity** (*num* = 1, *base* = 1, *fractional* = 1) - validates parts of *num*, which multiple to *base* and *fractional*.  
+
+- **findNumLargestSubsequenceByFractionalSchemaChanges** (*list* = [], *schema* = []) - return largest subsequence in *list*, which elements related to boolean *schema* (changes of fractional part, true - increase).  
+
+- **numListByAllPartsPercent** (*max* = 1e3, *parts* = [], *round* = 2) - generate list of numbers by % *parts* of *num* + % * 0.01.        
+
+- **getNumListRangeIndex** (*list* = [], *size* = 1, *round* = 2) - split *list* by *size* and count in each range of numbers, return difference between max and min range.  
+
+- **generateNumByBaseRandomly** (*base* = 1, *digits* = 1) - adding *digits* digits to *base* randomly: (125, 2) => 38125.    
+
+- **findNearestMultiplierOfNum** (*start* = 1, *end* = 1, *list* = []) - find among *list* nearest multiplier as result of division *end* on *start*.        

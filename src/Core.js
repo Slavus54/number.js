@@ -1,5 +1,4 @@
 const Helper = require('./Helper')
-
 class Core extends Helper {
     static #instance = null
 
@@ -802,6 +801,206 @@ class Core extends Helper {
                 increase = value
             } else {
                 decrease = value
+            }
+        })
+
+        return result
+    }
+
+    calculateNumBySchemaOperationsAndListRandomly(num = 1, schema = [], list = []) {
+        const length = list.length - 1
+        let result = num
+
+        schema.map(operation => {
+            let value = list[this.getIntervalValue([0, length])]
+
+            result = eval(`${result}${operation}${value}`)
+        })
+
+        return result
+    }
+
+    buildNumListByProgressionSchema(num = 1, schema = [], arithmetic = 1, geometric = 1, isIncrease = true) {
+        let result = [num]
+
+        schema.map(isArithmetic => {
+            if (isArithmetic) {
+                num = isIncrease ? num + arithmetic : num - arithmetic
+            } else {
+                num *= geometric
+            }
+
+            result = [...result, num]
+        })
+
+        return result
+    }
+
+    filterNumListByFractionalPartLatestDigit(list = [], from = 1, to = 1) {
+        let result = []
+
+        list.map(el => {
+            let value = el
+
+            while (value % 1 !== 0) {
+                value *= 1e1
+            }
+          
+            let digit = this.getNumDigit(value, 1)
+    
+            if (digit >= from && digit <= to) {
+                result = [...result, el]
+            }
+        })
+
+        return result
+    }
+
+    numFactorialMultiplicity(value = 1, num = 1) {
+        let pointer = num
+        let result = 1
+
+        while (pointer < value) {
+            result *= pointer
+
+            pointer += num
+        }
+
+        return result
+    }
+
+    findNumListUltraByMultiplicitySchema(list = [], schema = [], isMax = true) {
+        const check = (current, prev) => isMax ? current > prev : current < prev
+        
+        const length = schema.length
+        const base = isMax ? 0 : Math.max(...list)
+        
+        let result = new Array(length).fill(base)
+        let index = 0
+
+        list.map(el => {
+            let num = schema[index]
+
+            if (el % num === 0) {
+                const prev = result[index]
+                const flag = check(el, prev)
+
+                if (flag) {
+                    result[index] = el
+                }
+
+                index = index < length - 1 ? index + 1 : 0
+            }
+        })
+
+        return result
+    }
+
+    checkNumMultiplicity(num = 1, base = 1, fractional = 1) {
+        const value = Math.floor(num / 1)
+
+        let result = value % base === 0 
+        let pointer = 0
+
+        while (num % 1 !== 0) {
+            num *= 1e1
+            pointer++
+        }
+
+        result = (num - value*1e1**pointer) % fractional*1e1**pointer === 0 && result
+        
+        return result
+    }
+
+    findNumLargestSubsequenceByFractionalSchemaChanges(list = [], schema = []) {       
+        let result = []
+        let seq = []
+        let index = 0
+        let pointer = 0
+
+        list.map(el => {
+            let isMore = schema[index]
+            let value = this.getCleanResidue(el)
+        
+            let flag = index < schema.length && isMore && value > pointer || !isMore && value < pointer
+         
+            if (flag) {
+                seq = [...seq, el]
+                index += 1
+            } else {
+                if (seq.length > result.length) {
+                    result = seq
+                }
+
+                seq = [el]
+                index = 0
+            }
+
+            pointer = value
+        })
+
+        return result
+    }
+
+    numListByAllPartsPercent(max = 1e3, parts = [], round = 2) {
+        let result = []
+
+        parts.map(el => {
+            let value = this.cleanValue(el, max, 0) + el*1e-2
+
+            result = [...result, this.toRound(value, round)]
+        })
+
+        return result
+    }
+
+    getNumListRangeIndex(list = [], size = 1, round = 2) {
+        const border = Math.floor(list.length / size)
+        let result = []
+
+        for (let i = 0; i < border; i++) {
+            let part = list.slice(i * size, (i + 1) * size)
+            let value = Math.abs(Math.max(...part) - Math.min(...part))
+
+            result = [...result, value]
+        } 
+        
+        result = Math.max(...result) / Math.min(...result)
+        result = this.toRound(result, round)
+
+        return result
+    }
+
+    generateNumByBaseRandomly(base = 1, digits = 1) {
+        let result = base
+        let pointer = 0
+
+        while (1e1**pointer < base) {
+            pointer++
+        }
+
+        let max = pointer + digits 
+
+        while (pointer < max) {
+            result += this.getIntervalValue([1, 9]) * 1e1**pointer
+            pointer++
+        }
+
+        return result
+    }
+
+    findNearestMultiplierOfNum(start = 1, end = 1, list = []) {
+        const multiplier = Math.round(end / start)
+        
+        let difference = multiplier
+        let result = 0
+
+        list.map(el => {
+            let value = Math.abs(el - multiplier)
+
+            if (value < difference) {
+                difference = value
+                result = el
             }
         })
 
